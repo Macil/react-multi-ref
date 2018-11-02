@@ -1,0 +1,54 @@
+{
+  "name": "react-multi-ref",
+  "version": "1.0.0",
+  "description": "Utility for keeping references to multiple React elements.",
+  "main": "js/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "prepare": "rimraf js && babel -s inline -d js/ src/ --ignore '**/*.test.js' && flow-copy-source -v src js --ignore '**/*.test.*'",
+    "test": "yarn run lint && flow check && jest && tsc",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Macil/react-multi-ref.git"
+  },
+  "keywords": [
+    "react",
+    "ref"
+  ],
+  "author": "Chris Cowan <agentme49@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Macil/react-multi-ref/issues"
+  },
+  "homepage": "https://github.com/Macil/react-multi-ref#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.1.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.0",
+    "babel-jest": "^23.6.0",
+    "eslint": "^5.5.0",
+    "eslint-plugin-flowtype": "^3.2.0",
+    "flow-bin": "^0.85.0",
+    "flow-copy-source": "^2.0.0",
+    "jest": "^23.6.0",
+    "rimraf": "^2.6.2",
+    "typescript": "^3.0.3"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "flow-bin"
+    ]
+  }
+}
