@@ -42,7 +42,8 @@ class Foo extends React.Component {
 
 The `multiRef.map` property is a Map object containing entries where the key is
 the parameter passed to `multiRef.ref(key)` and the value is the ref element
-given by React.
+given by React. You can retrieve a specific element by key from the map by using
+`multiRef.map.get(key)`.
 
 Multiple calls to `multiRef.ref(key)` with the same key return the same value
 so that React knows that it doesn't need to update the ref.
