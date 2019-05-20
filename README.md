@@ -13,13 +13,13 @@ import React from 'react';
 import MultiRef from 'react-multi-ref';
 
 class Foo extends React.Component {
-  _items = new MultiRef();
+  _itemRefs = new MultiRef();
 
   render() {
     // Make a 5-item array of divs with keys 0,1,2,3,4
     const items = new Array(5).fill(null).map((n, i) =>
       <div key={i}>
-        <input type="text" ref={this._items.ref(i)} />
+        <input type="text" ref={this._itemRefs.ref(i)} />
       </div>
     );
     return (
@@ -32,7 +32,7 @@ class Foo extends React.Component {
 
   _onClick = () => {
     const parts = [];
-    this._items.map.forEach(input => {
+    this._itemRefs.map.forEach(input => {
       parts.push(input.value)
     });
     alert('all inputs: ' + parts.join(', '));
@@ -51,6 +51,48 @@ so that React knows that it doesn't need to update the ref.
 This relies on Map being available globally. A global polyfill such as
 [Babel's polyfill](https://babeljs.io/docs/en/babel-polyfill/) is required to
 support older browsers that don't implement these.
+
+## Hooks Example
+
+MultiRef is usable as long as you can create an instance of it and persist the
+instance for the lifetime of a component. The easiest way to do that in a
+function component is to put it in state with `useState`.
+
+It is *not* recommended to use React's `useMemo` to store the MultiRef instance
+because the documentation specifies that React is allowed to purge the memory
+of `useMemo` at any time. You should either use `useState` as below or use
+[useMemoOne](https://github.com/alexreardon/use-memo-one).
+
+```js
+import React, { useState } from 'react';
+import MultiRef from 'react-multi-ref';
+
+function Foo(props) {
+  const [itemRefs] = useState(() => new MultiRef());
+
+  function onClick() {
+    const parts = [];
+    itemRefs.map.forEach(input => {
+      parts.push(input.value)
+    });
+    alert('all inputs: ' + parts.join(', '));
+  }
+
+  // Make a 5-item array of divs with keys 0,1,2,3,4
+  const items = new Array(5).fill(null).map((n, i) =>
+    <div key={i}>
+      <input type="text" ref={itemRefs.ref(i)} />
+    </div>
+  );
+
+  return (
+    <div>
+      <button onClick={onClick}>Alert</button>
+      { items }
+    </div>
+  );
+}
+```
 
 ## Types
 
