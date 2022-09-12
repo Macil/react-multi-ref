@@ -45,8 +45,9 @@ the parameter passed to `multiRef.ref(key)` and the value is the ref element
 given by React. You can retrieve a specific element by key from the map by using
 `multiRef.map.get(key)`.
 
-Multiple calls to `multiRef.ref(key)` with the same key return the same value
-so that React knows that it doesn't need to update the ref.
+Subsequent calls to `multiRef.ref(key)` in later renders with the same key
+will return the same value so that React knows that it doesn't need to
+update the ref.
 
 ## Hooks Example
 

@@ -8,20 +8,24 @@ export default class MultiRef<K,V> {
   _refFns: Map<K,RefFn<V>> = new Map();
 
   ref(key: K): RefFn<V> {
-    let refFn: ?RefFn<V> = this._refFns.get(key);
-    if (!refFn) {
-      refFn = value => {
+    const refFn = this._refFns.get(key);
+    if (refFn) {
+      return refFn;
+    } else {
+      const refFn: RefFn<V> = value => {
         if (value == null) {
           this._refFns.delete(key);
           this.map.delete(key);
         } else {
+          this._refFns.set(key, refFn);
           this.map.set(key, value);
         }
       };
-      // TODO don't write to _refFns until inside callback above.
-      // Fixes leak in concurrent rendering
-      this._refFns.set(key, refFn);
+      // We don't put `refFn` into `this._refFns` yet, because if the current render
+      // is aborted, then it's possible than `refFn(null)` won't be called later
+      // and its cleanup will never happen. We shouldn't cause any side effects that
+      // need cleaning up later until `refFn` gets called with a non-null value.
+      return refFn;
     }
-    return refFn;
   }
 }
