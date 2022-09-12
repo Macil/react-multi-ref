@@ -5,9 +5,6 @@
 This is a small utility to make it easy for React components to deal with refs
 on multiple dynamically created elements.
 
-The following example code assumes that you're using either Babel with the
-"babel/plugin-proposal-class-properties" plugin active or TypeScript.
-
 ```js
 import React from 'react';
 import MultiRef from 'react-multi-ref';
