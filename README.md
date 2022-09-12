@@ -48,10 +48,6 @@ given by React. You can retrieve a specific element by key from the map by using
 Multiple calls to `multiRef.ref(key)` with the same key return the same value
 so that React knows that it doesn't need to update the ref.
 
-This relies on Map being available globally. A global polyfill such as
-[Babel's polyfill](https://babeljs.io/docs/en/babel-polyfill/) is required to
-support older browsers that don't implement these.
-
 ## Hooks Example
 
 MultiRef is usable as long as you can create an instance of it and persist the
