@@ -1,6 +1,6 @@
 {
   "name": "react-multi-ref",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Utility for keeping references to multiple React elements.",
   "main": "js/index.js",
   "sideEffects": false,
