@@ -30,25 +30,19 @@
   "devDependencies": {
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
+    "@babel/eslint-parser": "^7.18.9",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-flow": "^7.0.0",
     "@babel/register": "^7.0.0",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.0.0",
-    "babel-jest": "^24.8.0",
-    "eslint": "^6.0.0",
-    "eslint-plugin-flowtype": "^4.0.0",
+    "babel-jest": "^29.0.3",
+    "eslint": "^8.23.0",
+    "eslint-plugin-flowtype": "^8.0.3",
     "flow-bin": "^0.100.0",
     "flow-copy-source": "^2.0.0",
-    "jest": "^24.8.0",
+    "jest": "^29.0.3",
     "rimraf": "^3.0.0",
-    "typescript": "^3.0.3"
-  },
-  "greenkeeper": {
-    "ignore": [
-      "flow-bin"
-    ]
+    "typescript": "^4.8.3"
   }
 }

@@ -18,6 +18,8 @@ export default class MultiRef<K,V> {
           this.map.set(key, value);
         }
       };
+      // TODO don't write to _refFns until inside callback above.
+      // Fixes leak in concurrent rendering
       this._refFns.set(key, refFn);
     }
     return refFn;
