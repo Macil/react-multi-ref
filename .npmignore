@@ -7,5 +7,5 @@ npm-debug.log
 __tests__
 *.test.*
 /yarn.lock
-/.circleci
+/.github
 .babelrc
