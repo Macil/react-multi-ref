@@ -1,6 +1,6 @@
 # react-multi-ref
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Macil/react-multi-ref/blob/master/LICENSE.txt) [![npm version](https://img.shields.io/npm/v/react-multi-ref.svg?style=flat)](https://www.npmjs.com/package/react-multi-ref) [![CircleCI Status](https://circleci.com/gh/Macil/react-multi-ref.svg?style=shield)](https://circleci.com/gh/Macil/react-multi-ref) [![Greenkeeper badge](https://badges.greenkeeper.io/Macil/react-multi-ref.svg)](https://greenkeeper.io/)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Macil/react-multi-ref/blob/master/LICENSE.txt) [![npm version](https://img.shields.io/npm/v/react-multi-ref.svg?style=flat)](https://www.npmjs.com/package/react-multi-ref)
 
 This is a small utility to make it easy for React components to deal with refs
 on multiple dynamically created elements.
