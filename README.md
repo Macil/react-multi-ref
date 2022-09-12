@@ -54,8 +54,7 @@ function component is to put it in state with `useState`.
 
 It is *not* recommended to use React's `useMemo` to store the MultiRef instance
 because the documentation specifies that React is allowed to purge the memory
-of `useMemo` at any time. You should either use `useState` as below or use
-[useMemoOne](https://github.com/alexreardon/use-memo-one).
+of `useMemo` at any time.
 
 ```js
 import React, { useState } from 'react';
