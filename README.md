@@ -6,34 +6,33 @@ This is a small utility to make it easy for React components to deal with refs
 on multiple dynamically created elements.
 
 ```js
-import React from 'react';
-import MultiRef from 'react-multi-ref';
+import { useState } from "react";
+import MultiRef from "react-multi-ref";
 
-class Foo extends React.Component {
-  #itemRefs = new MultiRef();
+function Foo(props) {
+  const [itemRefs] = useState(() => new MultiRef());
 
-  render() {
-    // Make a 5-item array of divs with keys 0,1,2,3,4
-    const items = new Array(5).fill(null).map((n, i) =>
-      <div key={i}>
-        <input type="text" ref={this.#itemRefs.ref(i)} />
-      </div>
-    );
-    return (
-      <div>
-        <button onClick={this.#onClick}>Alert</button>
-        { items }
-      </div>
-    );
+  // Make a 5-item array of divs with keys 0,1,2,3,4
+  const items = new Array(5).fill(null).map((n, i) => (
+    <div key={i}>
+      <input type="text" ref={itemRefs.ref(i)} />
+    </div>
+  ));
+
+  function onClick() {
+    const parts = [];
+    itemRefs.map.forEach((input) => {
+      parts.push(input.value);
+    });
+    alert("all input values: " + parts.join(", "));
   }
 
-  #onClick = () => {
-    const parts = [];
-    this.#itemRefs.map.forEach(input => {
-      parts.push(input.value)
-    });
-    alert('all inputs: ' + parts.join(', '));
-  };
+  return (
+    <div>
+      <button onClick={onClick}>Alert</button>
+      {items}
+    </div>
+  );
 }
 ```
 
@@ -46,44 +45,40 @@ Subsequent calls to `multiRef.ref(key)` in later renders with the same key
 will return the same value so that React knows that it doesn't need to
 update the ref.
 
-## Hooks Example
+## Class Component Example
 
 MultiRef is usable as long as you can create an instance of it and persist the
-instance for the lifetime of a component. The easiest way to do that in a
-function component is to put it in state with `useState`.
-
-It is *not* recommended to use React's `useMemo` to store the MultiRef instance
-because the documentation specifies that React is allowed to purge the memory
-of `useMemo` at any time.
+instance for the lifetime of a component. In a function component, you can do this with `useState` (_not_ `useMemo`, because React is allowed to reset its memory at any time), and in a class component, you can do this by keeping the instance as a property on the class.
 
 ```js
-import React, { useState } from 'react';
-import MultiRef from 'react-multi-ref';
+import React from "react";
+import MultiRef from "react-multi-ref";
 
-function Foo(props) {
-  const [itemRefs] = useState(() => new MultiRef());
+class Foo extends React.Component {
+  #itemRefs = new MultiRef();
 
-  function onClick() {
-    const parts = [];
-    itemRefs.map.forEach(input => {
-      parts.push(input.value)
-    });
-    alert('all inputs: ' + parts.join(', '));
+  render() {
+    // Make a 5-item array of divs with keys 0,1,2,3,4
+    const items = new Array(5).fill(null).map((n, i) => (
+      <div key={i}>
+        <input type="text" ref={this.#itemRefs.ref(i)} />
+      </div>
+    ));
+    return (
+      <div>
+        <button onClick={this.#onClick}>Alert</button>
+        {items}
+      </div>
+    );
   }
 
-  // Make a 5-item array of divs with keys 0,1,2,3,4
-  const items = new Array(5).fill(null).map((n, i) =>
-    <div key={i}>
-      <input type="text" ref={itemRefs.ref(i)} />
-    </div>
-  );
-
-  return (
-    <div>
-      <button onClick={onClick}>Alert</button>
-      { items }
-    </div>
-  );
+  #onClick = () => {
+    const parts = [];
+    this.#itemRefs.map.forEach((input) => {
+      parts.push(input.value);
+    });
+    alert("all input values: " + parts.join(", "));
+  };
 }
 ```
 
