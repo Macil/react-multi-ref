@@ -5,10 +5,10 @@ type RefFn<V> = (value: V|null) => mixed;
 export default class MultiRef<K,V> {
   map: Map<K,V> = new Map();
 
-  _refFns: Map<K,RefFn<V>> = new Map();
+  #refFns: Map<K,RefFn<V>> = new Map();
 
   ref(key: K): RefFn<V> {
-    const refFn = this._refFns.get(key);
+    const refFn = this.#refFns.get(key);
     if (refFn) {
       return refFn;
     } else {
@@ -16,14 +16,14 @@ export default class MultiRef<K,V> {
         if (value == null) {
           // Support for React <=18, which cleans up ref functions by calling them
           // with null.
-          this._refFns.delete(key);
+          this.#refFns.delete(key);
           this.map.delete(key);
         } else {
-          this._refFns.set(key, refFn);
+          this.#refFns.set(key, refFn);
           this.map.set(key, value);
           // React 19+ cleanup support
           return () => {
-            this._refFns.delete(key);
+            this.#refFns.delete(key);
             this.map.delete(key);
           };
         }

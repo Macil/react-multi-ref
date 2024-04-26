@@ -10,26 +10,26 @@ import React from 'react';
 import MultiRef from 'react-multi-ref';
 
 class Foo extends React.Component {
-  _itemRefs = new MultiRef();
+  #itemRefs = new MultiRef();
 
   render() {
     // Make a 5-item array of divs with keys 0,1,2,3,4
     const items = new Array(5).fill(null).map((n, i) =>
       <div key={i}>
-        <input type="text" ref={this._itemRefs.ref(i)} />
+        <input type="text" ref={this.#itemRefs.ref(i)} />
       </div>
     );
     return (
       <div>
-        <button onClick={this._onClick}>Alert</button>
+        <button onClick={this.#onClick}>Alert</button>
         { items }
       </div>
     );
   }
 
-  _onClick = () => {
+  #onClick = () => {
     const parts = [];
-    this._itemRefs.map.forEach(input => {
+    this.#itemRefs.map.forEach(input => {
       parts.push(input.value)
     });
     alert('all inputs: ' + parts.join(', '));
