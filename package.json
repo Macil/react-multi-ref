@@ -6,7 +6,7 @@
   "sideEffects": false,
   "scripts": {
     "prepare": "rimraf js && babel -s true -d js/ src/ --ignore '**/*.test.js' && flow-copy-source -v src js --ignore '**/*.test.*'",
-    "test": "yarn run lint && flow check && jest && tsc",
+    "test": "npm run lint && flow check && jest && tsc",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix"
   },
