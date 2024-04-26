@@ -14,11 +14,18 @@ export default class MultiRef<K,V> {
     } else {
       const refFn: RefFn<V> = value => {
         if (value == null) {
+          // Support for React <=18, which cleans up ref functions by calling them
+          // with null.
           this._refFns.delete(key);
           this.map.delete(key);
         } else {
           this._refFns.set(key, refFn);
           this.map.set(key, value);
+          // React 19+ cleanup support
+          return () => {
+            this._refFns.delete(key);
+            this.map.delete(key);
+          };
         }
       };
       // We don't put `refFn` into `this._refFns` yet, because if the current render

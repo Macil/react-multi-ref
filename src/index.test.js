@@ -2,7 +2,7 @@
 
 import MultiRef from '.';
 
-test('works', () => {
+function basicTest(react19Api: boolean) {
   const mr = new MultiRef<number,string>();
 
   const originalRef1 = mr.ref(1);
@@ -42,7 +42,7 @@ test('works', () => {
   expect(mr.ref(1)).toBe(ref1);
   expect(mr.ref(2)).toBe(ref2);
 
-  mr.ref(1)('ABC');
+  const ref1Cleanup: Function = mr.ref(1)('ABC');
 
   expect(mr.map.get(1)).toBe('ABC');
   expect(mr.map.get(2)).toBe('def');
@@ -50,7 +50,11 @@ test('works', () => {
   expect(mr.ref(1)).toBe(ref1);
   expect(mr.ref(2)).toBe(ref2);
 
-  mr.ref(1)(null);
+  if (react19Api) {
+    ref1Cleanup();
+  } else {
+    mr.ref(1)(null);
+  }
 
   expect(mr.map.has(1)).toBe(false);
   expect(mr.map.get(2)).toBe('def');
@@ -75,4 +79,12 @@ test('works', () => {
 
   expect(mr.ref(1)).toBe(ref1b);
   expect(mr.ref(2)).toBe(ref2);
+}
+
+test('works with React <=18 API', () => {
+  basicTest(false);
+});
+
+test('works with React 19 API', () => {
+  basicTest(true);
 });
